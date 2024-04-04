@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -11,42 +12,54 @@
 	<name>notepad</name>
 	<description>Demo project for Spring Boot</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.6.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
+		<noty-version>3.2.0-beta</noty-version>
+		<bootstrap-version>5.3.3</bootstrap-version>
+		<jquery-version>3.7.1</jquery-version>
+		<webdrivermanager-version>5.7.0</webdrivermanager-version>
+		<maven-release-plugin-version>3.0.1</maven-release-plugin-version>
 		<acceptance.notepad.url>http://localhost:8080</acceptance.notepad.url>
-		<selenium.url>http://localhost:4444/wd/hub</selenium.url>
+		<selenium.url>http://localhost:4444/</selenium.url>
 		<selenium.browser>firefox</selenium.browser>
 	</properties>
 
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.1</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<!-- ********************** Git Account to re ******************************* -->
 	<scm>
-		<connection>scm:git:git@github.com:jorgeacetozi/notepad.git</connection>
-		<developerConnection>scm:git:git@github.com:jorgeacetozi/notepad.git</developerConnection>
-		<url>scm:git:git@github.com:jorgeacetozi/notepad.git</url>
+		<connection>scm:git:git@github.com:jmd78140/notepad.git</connection>
+		<developerConnection>scm:git:git@github.com:jmd78140/notepad.git</developerConnection>
+		<url>scm:git:git@github.com:jmd78140/notepad.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
+	<!-- ********************** Publish to Artifactory ******************************* -->
 	<distributionManagement>
 		<repository>
 			<id>central</id>
 			<name>artifactory-releases</name>
-			<url>http://artifactory-service:8081/artifactory/libs-release-local</url>
+			<url>http://artifactory.tools.lsdomain/artifactory/libs-release-local</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>artifactory-snapshots</name>
-			<url>http://artifactory-service:8081/artifactory/libs-snapshot-local</url>
+			<url>http://artifactory.tools.lsdomain/artifactory/libs-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
-
+	
+	<!-- ******************************************************************* -->
+	<!-- ********************** DEPENDENCIES ******************************* -->
+	<!-- ******************************************************************* -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,40 +77,68 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- Allow to easily evolve DB schema  -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>3.1.1</version>
+			<version>${jquery-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>3.3.7</version>
+			<version>${bootstrap-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.webjars</groupId>
+			<groupId>org.webjars.bowergithub.needim</groupId>
 			<artifactId>noty</artifactId>
-			<version>2.2.4</version>
+			<version>${noty-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+		<dependency>
+    		<groupId>io.github.bonigarcia</groupId>
+    		<artifactId>webdrivermanager</artifactId>
+    		<version>${webdrivermanager-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- javax.validation dependency -->
+		<!--
+		https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+		</dependency>
+		<!-- For hibernate validation -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
-
+	
+	<!-- ******************************************************************* -->
+    <!-- ********************** PROFILES *********************************** -->
+	<!-- ******************************************************************* -->
 	<profiles>
 		<profile>
 			<id>acceptance-tests</id>
@@ -134,7 +175,9 @@
 							<systemPropertyVariables>
 								<selenium.url>${selenium.url}</selenium.url>
 								<selenium.browser>${selenium.browser}</selenium.browser>
-								<acceptance.notepad.url>${acceptance.notepad.url}</acceptance.notepad.url>
+								<acceptance.notepad.url>
+									${acceptance.notepad.url}
+								</acceptance.notepad.url>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>
@@ -156,11 +199,15 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
 						<configuration>
-							<test>**/acceptanceTests/note/CreateNoteTest#shouldCreateNewNoteWithTitleAndContent</test>
+							<test>
+								**/acceptanceTests/note/CreateNoteTest#shouldCreateNewNoteWithTitleAndContent
+							</test>
 							<systemPropertyVariables>
 								<selenium.url>${selenium.url}</selenium.url>
 								<selenium.browser>${selenium.browser}</selenium.browser>
-								<acceptance.notepad.url>${acceptance.notepad.url}</acceptance.notepad.url>
+								<acceptance.notepad.url>
+									${acceptance.notepad.url}
+								</acceptance.notepad.url>
 							</systemPropertyVariables>
 						</configuration>
 					</plugin>
@@ -169,6 +216,9 @@
 		</profile>
 	</profiles>
 
+	<!-- ******************************************************************* -->
+    <!-- ********************** BUILD ************************************** -->
+	<!-- ******************************************************************* -->
 	<build>
 		<plugins>
 			<plugin>
@@ -178,11 +228,12 @@
 					<executable>true</executable>
 				</configuration>
 			</plugin>
-
+			
+			<!-- To publish releases to the remote release repository in Artifactory -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.2</version>
+				<version>${maven-release-plugin-version}</version>
 			</plugin>
 
 			<plugin>
