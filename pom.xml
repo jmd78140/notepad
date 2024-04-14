@@ -27,12 +27,12 @@
 		<selenium.browser>firefox</selenium.browser>
 	</properties>
 
-
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.0.1</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository --> 
 	</parent>
 
 	<!-- ********************** Git Account to re ******************************* -->
@@ -48,12 +48,12 @@
 		<repository>
 			<id>central</id>
 			<name>artifactory-releases</name>
-			<url>http://artifactory.tools.lsdomain/artifactory/libs-release-local</url>
+			<url>>http://jfrog.tools.lsdomain/artifactory/libs-release-local</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>artifactory-snapshots</name>
-			<url>http://artifactory.tools.lsdomain/artifactory/libs-snapshot-local</url>
+			<url>http://jfrog.tools.lsdomain/artifactory/libs-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
 	

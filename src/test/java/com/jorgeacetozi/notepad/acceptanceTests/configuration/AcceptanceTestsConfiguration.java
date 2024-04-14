@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AcceptanceTestsConfiguration {
 	private final static String NOTEPAD_URL = System.getProperty("acceptance.notepad.url", "http://localhost:8080");
-	private final static String SELENIUM_URL = System.getProperty("selenium.url", "http://localhost:4444/wd/hub");
+	private final static String SELENIUM_URL = System.getProperty("selenium.url", "http://localhost:4444/");
 	private final static String SELENIUM_BROWSER = System.getProperty("selenium.browser", "chrome");
 
 	@Bean(destroyMethod = "quit")

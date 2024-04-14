@@ -1,23 +1,29 @@
 package com.jorgeacetozi.notepad.acceptanceTests.note;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+// Testing Hamcrest
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+// Testing Junit
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.net.URI;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+// Selenium
 import org.openqa.selenium.WebDriver;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+// Project
 import com.jorgeacetozi.notepad.acceptanceTests.configuration.AcceptanceTestsConfiguration;
 import com.jorgeacetozi.notepad.acceptanceTests.note.pageObject.NewNotePage;
 import com.jorgeacetozi.notepad.note.domain.model.Note;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { AcceptanceTestsConfiguration.class })
 public class CreateNoteTest {
 
@@ -31,7 +37,7 @@ public class CreateNoteTest {
 	private final String newNoteSuccessMessage = "Your note was successfully saved!";
 	private final String newNoteFailMessage = "Title and Content cannot be empty";
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		driver.get(notepadBaseUri.toString());
 		newNotePage = new NewNotePage(driver);

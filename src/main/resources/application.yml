@@ -1,13 +1,17 @@
-spring.profiles.active: dev
+spring:
+  profile:
+    active: dev
 
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/notepad
-    username: root
-    password: root
+    url: jdbc:postgresql://localhost:5432/notepad
+    username: noteadm
+    password: noteadm
     testWhileIdle: true
     validationQuery: SELECT 1
   jpa:
@@ -17,7 +21,7 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   thymeleaf:
     cache: false
   messages:
@@ -28,14 +32,18 @@ endpoints.sensitive: false
 
 ---
 
-test_mysql_host: ${ENV_TEST_MYSQL_HOST:localhost}
+
+test_postgresql_host: ${ENV_TEST_POSTGRESQL_HOST:localhost}
 
 spring:
-  profiles: test
+#  profiles: test
+  config:
+    activate:
+      on-profile: test
   datasource:
-    url: jdbc:mysql://${test_mysql_host}:3306/notepad
-    username: root
-    password: root
+    url: jdbc:postgresql://${test_postgresql_host}:5432/notepad
+    username: noteadm
+    password: noteadm
     testWhileIdle: true
     validationQuery: SELECT 1
   jpa:
@@ -45,15 +53,24 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 flyway.enabled: true
 endpoints.sensitive: false
 
 ---
 
+# BEGIN FIX 
+testing_datasource_url: jdbc:postgresql://localhost:5432/notepad
+testing_datasource_username: noteadm 
+testing_datasource_password: noteadm
+# END FIX
+
 spring:
-  profiles: testing
+#  profiles: testing
+  config:
+    activate:
+      on-profile: testing
   datasource:
     url: ${testing_datasource_url}
     username: ${testing_datasource_username}
@@ -67,7 +84,7 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 flyway.enabled: true
 endpoints.sensitive: false
@@ -75,8 +92,18 @@ logging.config: /etc/notepad/logback-spring.xml
 
 ---
 
+
+# BEGIN FIX 
+staging_datasource_url: jdbc:postgresql://localhost:5432/notepad
+staging_datasource_username: noteadm 
+staging_datasource_password: noteadm
+# END FIX
+
 spring:
-  profiles: staging
+#  profiles: staging
+  config:
+    activate:
+      on-profile: staging
   datasource:
     url: ${staging_datasource_url}
     username: ${staging_datasource_username}
@@ -90,7 +117,7 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 flyway.enabled: true
 endpoints.sensitive: false
@@ -98,8 +125,18 @@ logging.config: /etc/notepad/logback-spring.xml
 
 ---
 
+
+# BEGIN FIX 
+production_datasource_url: jdbc:postgresql://localhost:5432/notepad
+production_datasource_username: noteadm 
+production_datasource_password: noteadm
+# END FIX
+
 spring:
-  profiles: production
+#  profiles: production
+  config:
+    activate:
+      on-profile: production
   datasource:
     url: ${production_datasource_url}
     username: ${production_datasource_username}
@@ -113,7 +150,7 @@ spring:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 flyway.enabled: true
 endpoints.sensitive: false
